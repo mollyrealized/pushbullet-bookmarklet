@@ -15,11 +15,7 @@ This bookmarklet provides a quick way to send the current page's URL to a predef
 1. **Create a new bookmark** in your web browser's bookmarks bar.
 2. **Obtain your Pushbullet API Token**: Go to [Pushbullet Account Settings](https://www.pushbullet.com/#settings/account) to retrieve your API access token.
 3. **Obtain Your Device Identifier**: Visit [Pushbullet Devices](https://www.pushbullet.com/#devices), click on your target device, and note the identifier string from the URL.
-4. **Edit the Bookmark URL**: Paste the entire JavaScript code provided below, replacing `APICODE` and `DEVICECODE` with your API token and device identifier, respectively:
-   
-   ```javascript
-   javascript:(function(){const n=document.createElement('div');n.style.cssText='position:fixed;top:-40px;left:0;right:0;background:rgba(70,70,70,0.9);color:white;padding:10px;text-align:center;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;z-index:999999;transition:top 0.3s ease-in-out;box-shadow:0 2px 5px rgba(0,0,0,0.2)';n.textContent='Sending URL to device...';document.body.appendChild(n);setTimeout(()=>n.style.top='0',100);const a='APICODE',d='DEVICECODE';fetch('https://api.pushbullet.com/v2/pushes',{method:'POST',headers:{'Access-Token':a,'Content-Type':'application/json'},body:JSON.stringify({type:'link',title:'',body:'',url:window.location.href,device_iden:d})}).then(r=>{n.textContent=r.ok?'URL sent successfully!':'Failed to send URL';setTimeout(()=>{n.style.top='-40px';setTimeout(()=>n.remove(),300)},1500)}).catch(()=>{n.textContent='Failed to send URL';setTimeout(()=>{n.style.top='-40px';setTimeout(()=>n.remove(),300)},1500)})})();
-   ```
+4. **Edit the Bookmark URL**: Paste the entire JavaScript code provided above in `pushbullet-bookmarklet.js`, replacing `APICODE` and `DEVICECODE` with your API token and device identifier, respectively.
 5. **Save the Bookmark**: Rename it to something descriptive, such as **"Send to Pushbullet"**.
 6. **Use the Bookmarklet**: Click the bookmark whenever you want to send the current page's URL to your device.
 
