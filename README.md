@@ -35,7 +35,7 @@ javascript: (function() {
     document.body.appendChild(n);
     setTimeout(() => n.style.top = '0', 100);
     const a = 'APICODE',
-        d = 'DESTINATIONDEVICECODE';
+        d = 'DEVICECODE';
     fetch('https://api.pushbullet.com/v2/pushes', {
         method: 'POST',
         headers: {
@@ -44,8 +44,8 @@ javascript: (function() {
         },
         body: JSON.stringify({
             type: 'link',
-            title: '',
-            body: '',
+            title: document.title,
+            body: document.body.textContent.substring(0, 80),
             url: window.location.href,
             device_iden: d
         })
