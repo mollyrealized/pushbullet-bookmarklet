@@ -1,4 +1,4 @@
-# Push URL Bookmarklet
+# Pushbullet 'Push URL' Bookmarklet
 
 ## Overview
 
