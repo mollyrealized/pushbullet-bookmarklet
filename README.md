@@ -25,6 +25,42 @@ Ensure your Pushbullet access token remains secure. Bookmarklets are executed in
 
 This code uses the Pushbullet API and requires you to use your personal API token and device ID. Handle these credentials with care to avoid unauthorized access.
 
----
+## Expanded Bookmarklet Code
 
-Feel free to use and modify this script for personal use. If you encounter any issues or need further customization, reach out via GitHub.
+```
+javascript: (function() {
+    const n = document.createElement('div');
+    n.style.cssText = 'position:fixed;top:-40px;left:0;right:0;background:rgba(70,70,70,0.9);color:white;padding:10px;text-align:center;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;z-index:999999;transition:top 0.3s ease-in-out;box-shadow:0 2px 5px rgba(0,0,0,0.2)';
+    n.textContent = 'Sending URL to device...';
+    document.body.appendChild(n);
+    setTimeout(() => n.style.top = '0', 100);
+    const a = 'APICODE',
+        d = 'DESTINATIONDEVICECODE';
+    fetch('https://api.pushbullet.com/v2/pushes', {
+        method: 'POST',
+        headers: {
+            'Access-Token': a,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            type: 'link',
+            title: '',
+            body: '',
+            url: window.location.href,
+            device_iden: d
+        })
+    }).then(r => {
+        n.textContent = r.ok ? 'URL sent successfully!' : 'Failed to send URL';
+        setTimeout(() => {
+            n.style.top = '-40px';
+            setTimeout(() => n.remove(), 300)
+        }, 1500)
+    }).catch(() => {
+        n.textContent = 'Failed to send URL';
+        setTimeout(() => {
+            n.style.top = '-40px';
+            setTimeout(() => n.remove(), 300)
+        }, 1500)
+    })
+})();
+```
